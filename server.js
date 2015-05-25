@@ -1,7 +1,11 @@
+'use strict';
+
 var express = require('express'),
     twitterAPI = require('node-twitter-api');
 
 var app = express();
+
+app.use(express.static(__dirname + '/build'));
 
 var searchRouter = new express.Router();
 
@@ -16,12 +20,14 @@ var accTok = '32334676-YHAGworlA69LyZv0OCkR2727G7LdngviSyYCyr3eL',
 
 app.get('/search/:id', function (req, res) {
   twitter.search({
-    q: req.params.id
+    q: req.params.id,
+    count: 100,
+    result_type: 'mixed'
   }, accTok, accTokSec, function (err, data) {
     if (err) {
       console.log(err);
     } else {
-      res.send(JSON.stringify(data.statuses[0].user['screen_name']));
+      res.send(data);
     }
   });
 });
