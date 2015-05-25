@@ -1,6 +1,5 @@
 var express = require('express'),
-    twitterAPI = require('node-twitter-api'),
-    searchRoute = require('./api/routes/search_routes');
+    twitterAPI = require('node-twitter-api');
 
 var app = express();
 
